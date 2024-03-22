@@ -35,3 +35,8 @@ Next, a response string is constructed using the format! macro, incorporating th
 In summary, the updated handle_connection function processes incoming HTTP requests, determines the appropriate response based on the requested path, serves the content of corresponding files, and sends the response back over the TCP stream.
 
 ![Commit 3 screen capture](/assets/images/commit3.png)
+
+## Commit 4 Reflection notes
+
+The handle_connection function is updated once more, except this time it is used to simulate a slow request. A match statement is used to determine the appropriate status_line and filename based on the content of the request_line. If the request line corresponds to a GET request for the root ("/") path in HTTP/1.1, indicating a request for the "hello.html" file, the status_line is set to "HTTP/1.1 200 OK", and the filename to "hello.html". Additionally, if the request line corresponds to a GET request for the "/sleep" path in HTTP/1.1, indicating a request to simulate a delay, a 10-second delay is introduced using thread::sleep(Duration::from_secs(10)). After the delay, the status_line remains "HTTP/1.1 200 OK", and the filename remains "hello.html". If the requested path does not match either the root or the "/sleep" path, indicating a not-found scenario, the status_line is set to "HTTP/1.1 404 NOT FOUND", and the filename to "404.html".
+
